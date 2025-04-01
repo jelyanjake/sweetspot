@@ -1,0 +1,190 @@
+:root {
+    --pri: #414141;
+}
+
+.contentinsidebg {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    padding: 20px;
+    margin: 20px;
+    backdrop-filter: blur(3px);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    line-height: 1.25;
+    max-width: 1140px;
+    margin: auto;
+    background-color: #ececec;
+    background-image: url('../img/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: rgba(218, 218, 218, 0.3);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left: 20px;
+}
+
+.nav-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+table,th,td {
+    color:white;
+    text-align: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="submit"] {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+}
+
+input,
+select {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+button {
+    background-color: var(--pri);
+    color: white;
+    border: 1px solid var(--pri);
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-links a button {
+    background-color: #b45690;
+    color: white;
+    border: 1px solid #b45690;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-links a button:hover {
+    background-color: #a73e7f;
+    color: white;
+    border-color:#dee2e6;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background-color: var(--pri);
+    color: white;
+    border: 1px solid var(--pri);
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #303030;
+    color: white;
+    border-color:#dee2e6;
+    cursor: pointer;
+}
+
+td,th {
+    text-align: center;
+}
+
+table,th,td {
+    width: 1060px;
+}
+
+table {
+    display: block;
+    max-height:500px;
+    overflow: auto;
+    padding: 25px;
+}
+
+form input[type="submit"][name="delete"],form a button,td a button[name="Delete"] {
+    background-color: #A32B1D;
+    color: white;
+    border: 1px solid #A32B1D;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+form input[type="submit"][name="delete"]:hover,form a button:hover,td a button[name="Delete"]:hover {
+    background-color: #831f14;
+    border-color:#dee2e6;
+}
+
+form input[name="addb"],form input[name="add_product"],form input[name="update_stock"],form input[name="update_user"] {
+    background-color: #2e7245;
+    color: white;
+    border: 1px solid #2e7245;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+form input[name="add_product"]:hover,form input[name="addb"]:hover,form input[name="update_stock"]:hover,form input[name="update_user"]:hover {
+    background-color: #265e38;
+    border-color:#dee2e6;
+}
