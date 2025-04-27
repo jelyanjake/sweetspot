@@ -1,0 +1,81 @@
+/* Keep your existing styles and add these: */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+/* Add this new wrapper */
+.modal-position-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Remove position/transform from modal itself */
+.status-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+/* Keep the rest of your existing styles */
+
+/* Spinner animation */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(52, 152, 219, 0.2);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+}
+
+/* Status colors */
+.status-modal.success {
+  border-top: 4px solid #4CAF50;
+}
+
+.status-modal.error {
+  border-top: 4px solid #f44336;
+}
+
+/* Button styles */
+.status-modal button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+/* Add these new styles */
+.status-gif {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+.spinner-container {
+  height: 60px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
