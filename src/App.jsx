@@ -31,7 +31,7 @@ function App() {
       <header className="header">
         <div className="container">
           <nav>
-            <a href="#" className="logo">&#128223; Time Log Box System</a>
+            <a href="#" className="logo">&#128223; SweetSpot</a>
             <ul className="nav-links">
               <li><MenuPopup /></li>
             </ul>
@@ -81,7 +81,7 @@ function App() {
 
       <footer className="footer">
         <div className="container">
-          <p>Group 1 | Time Log Box w/ SMS Broadcasting | BSIT - 3A</p>
+          <p>Team Local | Smart Parking System | BSIT - 3A</p>
         </div>
       </footer>
     </div>
