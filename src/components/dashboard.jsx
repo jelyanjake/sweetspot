@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StatusModal from './StatusModal';
 
-function RegPage() {
+function DashboardPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -68,60 +68,7 @@ function RegPage() {
     <section id="features">
       <div className="container">
         <div className="section-title">
-          <form className="registration-form" onSubmit={handleSubmit}>
-            <h2>Register User</h2>
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                autoFocus
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="phone">Phone Number:</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="idnum">School ID Number:</label>
-              <input
-                type="text"
-                id="idnum"
-                name="idnum"
-                autoComplete='off'
-                value={formData.idnum}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-actions">
-              <button 
-                type="submit" 
-                className="register-btn"
-              >Register</button>
-              <button 
-                type="reset" 
-                className="cancel-btn"
-                onClick={() => setFormData({ name: '', phone: '', idnum: '' })}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+          <h2>Dashboard</h2>
         </div>
       </div>
       <StatusModal
@@ -133,4 +80,4 @@ function RegPage() {
   );
 }
 
-export default RegPage;
+export default DashboardPage;

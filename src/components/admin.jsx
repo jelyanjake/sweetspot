@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import './logs.css';
+import './admin.css';
 
-function UsersPage() {
+function AdminPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -122,4 +122,4 @@ function UsersPage() {
   );
 }
 
-export default UsersPage;
+export default AdminPage;

@@ -84,28 +84,7 @@ function HomePage() {
     <section id="features">
       <div className="container">
         <div className="section-title">
-          <form className="time-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="idnum">School ID Number:</label>
-              <input 
-                type="text" 
-                id="idnum" 
-                name="idnum" 
-                value={idNum}
-                onChange={(e) => setIdNum(e.target.value)}
-                autoFocus 
-                autoComplete="off" 
-                required 
-              />
-            </div>
-            <button 
-              type="submit" 
-              className="time-btn"
-              disabled={status === 'loading'}
-            >
-              {status === 'loading' ? 'Processing...' : 'Time in/out'}
-            </button>
-          </form>
+          <h2>Sweetspot Landing Page</h2>
         </div>
       </div>
       <StatusModal

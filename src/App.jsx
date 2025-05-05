@@ -1,13 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import MenuPopup from './components/menupopup';
 import HomePage from './components/home';
-import RegPage from './components/reg';
-import UsersPage from './components/logs';
-
+import DashboardPage from './components/dashboard';
+import AdminPage from './components/admin';
 
 function App() {
   
@@ -31,7 +29,7 @@ function App() {
       <header className="header">
         <div className="container">
           <nav>
-            <a href="#" className="logo">&#128223; SweetSpot</a>
+            <a href="#" className="logo">SweetSpot</a>
             <ul className="nav-links">
               <li><MenuPopup /></li>
             </ul>
@@ -53,7 +51,7 @@ function App() {
                 <HomePage />
               </motion.div>
             } />
-            <Route path="/register" element={
+            <Route path="/dashboard" element={
               <motion.div
                 initial="initial"
                 animate="in"
@@ -61,10 +59,10 @@ function App() {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <RegPage />
+                <DashboardPage />
               </motion.div>
             } />
-            <Route path="/users" element={
+            <Route path="/admin" element={
               <motion.div
                 initial="initial"
                 animate="in"
@@ -72,7 +70,7 @@ function App() {
                 variants={pageVariants}
                 transition={pageTransition}
               >
-                <UsersPage />
+                <AdminPage />
               </motion.div>
             } />
           </Routes>
