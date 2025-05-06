@@ -121,10 +121,14 @@ nav {
 }
 
 .section-title {
+  text-align: center;
+}
+
+.section-titlehome {
   text-align: justify;
 }
 
-.section-title h2 {
+.section-title h2,.section-titlehome {
   font-size: 2rem;
   color: var(--primary);
 }

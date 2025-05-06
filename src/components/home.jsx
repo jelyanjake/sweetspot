@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <section id="featureshome">
       <div className="container">
-        <div className="section-title">
+        <div className="section-titlehome">
           <h2>Sweetspot Landing Page</h2>
           <p>testing5</p>
         </div>
