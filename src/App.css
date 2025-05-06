@@ -112,7 +112,7 @@ nav {
 }
 
 #featureshome {
-  background-color: chartreuse;
+  background-image: url('./assets/bg.jpg');
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
