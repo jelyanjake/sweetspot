@@ -116,7 +116,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
-  height: 1080px;
+  height: 900px;
 }
 
 .section-title {
