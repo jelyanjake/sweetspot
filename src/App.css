@@ -128,7 +128,7 @@ nav {
   text-align: justify;
 }
 
-.section-title h2,.section-titlehome {
+.section-title h2 {
   font-size: 2rem;
   color: var(--primary);
 }
