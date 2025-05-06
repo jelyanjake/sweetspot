@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StatusModal from './StatusModal';
 import { sendSMS } from './sms';
-import bg from './assets/bg.jpg';
+import bg from '../assets/bg.jpg';
 
 function HomePage() {
   const [status, setStatus] = useState(null);
