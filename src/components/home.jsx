@@ -86,6 +86,7 @@ function HomePage() {
       <div className="container">
         <div className="section-title">
           <h2>Sweetspot Landing Page</h2>
+          <p>testing</p>
         </div>
       </div>
       <StatusModal
