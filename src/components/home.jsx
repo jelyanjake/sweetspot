@@ -14,7 +14,7 @@ function HomePage() {
         <div className="section-titlehome">
           <h3>Welcome to</h3>
           <h2>SweetSpot</h2>
-          <p>A smart parking system designed to improve parking efficiency. It integrates with a mobile application, providing drivers with a visual guide to their assigned parking space. This feature significantly reduces the time drivers spend searching for parking, offering a convenient and time-saving solution.</p>
+          <p>A smart parking system designed to improve parking efficiency.<br>It integrates with a mobile application, providing drivers with a visual guide to their assigned parking space.<br>This feature significantly reduces the time drivers spend searching for parking, offering a convenient and time-saving solution.</p>
         </div>
       </div>
       <StatusModal
