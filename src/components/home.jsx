@@ -2,7 +2,6 @@ import { useState } from 'react';
 import StatusModal from './StatusModal';
 import { sendSMS } from './sms';
 //import bg from '../assets/bg.jpg';
-import './home.css';
 
 function HomePage() {
   const [status, setStatus] = useState(null);
@@ -10,12 +9,11 @@ function HomePage() {
   const [idNum, setIdNum] = useState('');
 
   return (
-    <section id="features">
+    <section id="featureshome">
       <div className="container">
         <div className="section-title">
           <h2>Sweetspot Landing Page</h2>
-          <p>testing</p>
-          <h2>testingtesting</h2>
+          <p>testing2</p>
         </div>
       </div>
       <StatusModal

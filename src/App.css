@@ -111,6 +111,13 @@ nav {
   padding: 35px 0;
 }
 
+#featureshome {
+  background-color: chartreuse;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
 .section-title {
   text-align: center;
 }
