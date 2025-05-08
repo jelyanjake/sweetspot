@@ -111,8 +111,21 @@ nav {
   padding: 35px 0;
 }
 
+#featureshome {
+  background-image: url('./assets/bg.jpg');
+  /*display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
+  gap: 30px;
+  height: 780px;
+  padding: 35px 0;
+}
+
 .section-title {
   text-align: center;
+}
+
+.section-titlehome {
+  text-align: justify;
 }
 
 .section-title h2 {
