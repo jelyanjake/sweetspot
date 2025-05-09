@@ -1,3 +1,32 @@
-.features {
-    background-color: aqua;
+.section-titlehome h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 6rem;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: none;
+    margin: none;
+    color:#4081e2;
+}
+
+.section-titlehome p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+    font-weight: 500;
+    padding: none;
+    margin: none;
+}
+
+.homebtn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+    font-weight: 500;
+    padding: none;
+    margin: none;
+    color: rgb(77, 77, 77);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid rgb(77, 77, 77);
 }

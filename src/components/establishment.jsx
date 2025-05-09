@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import StatusModal from './StatusModal';
 import io from 'socket.io-client';
-import { fetchBurgers } from '../api/api';
 
-function DashboardPage() {
+function EstablishmentPage() {
   const [status, setStatus] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [sensorData, setSensorData] = useState(null);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const burgers = await fetchBurgers();
-        setData(burgers);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
 
   useEffect(() => {
     // Connect to the Node.js server
@@ -53,23 +37,8 @@ function DashboardPage() {
     <section id="features">
       <div className="container">
         <div className="section-title">
-          <h2>List of Establishments</h2>
+          <h2>South Town Centre | Basement</h2>
         </div>
-        <br />
-        <br />
-        <div className="features-grid">
-              {data.map((burger) => (
-                <div key={burger.id} className="feature-card">
-                  <div className='feature-card-content'>
-                    <img src={burger.avatar} alt={burger.name} />
-                    <h3>{burger.name}</h3>
-                    <p>{burger.description}</p>
-                    <p className="price">${burger.price}</p>
-                  </div>
-                  <button className="btn" onClick={() => addToCart(burger)}>Add to Cart</button>
-                </div>
-              ))}
-            </div>
         
         <div style={cardStyle}>
           <h3>Spot #1 Status</h3>
@@ -93,4 +62,4 @@ function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default EstablishmentPage;
