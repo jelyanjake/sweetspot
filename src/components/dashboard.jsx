@@ -97,7 +97,7 @@ function DashboardPage() {
           <h3>Local Arduino Status</h3>
           {sensorData !== null ? (
             <>
-              <p>temp data: {sensorData}</p>
+              <p>Data: {sensorData}cm</p>
               <p>Status: {sensorData < 30 ? 'Occupied' : 'Vacant'}</p>
               <p>Jelyan's Arduino</p>
             </>
@@ -107,13 +107,13 @@ function DashboardPage() {
         </div>
 
         {apiData.filter(item => item.id <= 1).map((apiData) => (
-          <div style={cardStyle}>
+          <div key={apiData.id} style={cardStyle}>
           <h3>Live Server Spot Status</h3>
           {apiData.status !== null ? (
             <>
-              <p>temp data: {apiData.status}</p>
+              <p>Data: {apiData.status}cm</p>
               <p>Status: {apiData.status < 30 ? 'Occupied' : 'Vacant'}</p>
-              <p>Online, Updated every 2s</p>
+              <p>Updated every 2s</p>
             </>
           ) : (
             <p>Waiting for data from Arduino...</p>
@@ -128,6 +128,7 @@ function DashboardPage() {
                   <div className='feature-card-content'>
                     <img src={apiData.avatar} alt={apiData.name} />
                     <h3>{apiData.name}</h3>
+                    <p>{apiData.description}</p>
                     <p>{apiData.spots.length} spots</p>
                     <p>Parking Fee: <span className="price">₱{apiData.price}</span></p>
                   </div>
