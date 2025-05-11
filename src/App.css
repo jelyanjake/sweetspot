@@ -141,7 +141,7 @@ nav {
 
 .feature-card {
   background: var(--secondary);
-  border: 1px solid #cfa392;
+  border: 1px solid #c4c4c4;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -169,11 +169,17 @@ nav {
   transform: translateY(0);
 }
 
-/* Add padding to card content to prevent overlap */
 .feature-card-content {
   padding-bottom: 20px;
-  /* Space for button */
   transition: transform 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #555;
+}
+
+.price {
+  color: green;
 }
 
 /* Optional: Slight card lift on hover */

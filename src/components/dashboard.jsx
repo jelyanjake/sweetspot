@@ -1,26 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import StatusModal from './StatusModal';
 import io from 'socket.io-client';
-import { fetchBurgers } from '../api/api';
+//import { fetchBurgers } from '../api/api';
+import axios from 'axios';
 
 function DashboardPage() {
   const [status, setStatus] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [sensorData, setSensorData] = useState(null);
   const [data, setData] = useState([]);
+  const sensorRef = useRef(sensorData);
+  const [apiData, setApiData] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const loadData = async () => {
       try {
         const burgers = await fetchBurgers();
         setData(burgers);
       } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
+        console.log(err);
       }
     };
     loadData();
+    const interval = setInterval(fetchBurgers, 5000); // fetch every 2s
+
+    return () => clearInterval(interval);
+  }, []);*/
+
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const burgers = await axios.get('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers');
+        setApiData(burgers.data);
+        //console.log('GET: Fetched data:', burgers.data);
+      } catch (err) {
+        console.error('GET error:', err);
+      }
+    };
+
+    const getInterval = setInterval(fetchData, 2000);
+    return () => clearInterval(getInterval);
+  }, []);
+
+  useEffect(() => {
+    const updateStatus = async () => {
+      try {
+        await axios.put('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/1', {
+          status: Number(sensorRef.current),
+        });
+        //console.log(`Updated status to ${sensorRef.current}`);
+      } catch (error) {
+        console.error('Failed to update status:', error);
+      }
+    };
+
+    const interval = setInterval(updateStatus, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -30,6 +65,7 @@ function DashboardPage() {
     // Listen for the 'arduino-data' event from the server
     socket.on('arduino-data', (data) => {
       setSensorData(data);
+      sensorRef.current = data;
     });
 
     // Clean up when the component unmounts
@@ -53,35 +89,52 @@ function DashboardPage() {
     <section id="features">
       <div className="container">
         <div className="section-title">
-          <h2>List of Establishments</h2>
+          <h2>Available Establishments</h2>
         </div>
         <br />
-        <br />
-        <div className="features-grid">
-              {data.map((burger) => (
-                <div key={burger.id} className="feature-card">
-                  <div className='feature-card-content'>
-                    <img src={burger.avatar} alt={burger.name} />
-                    <h3>{burger.name}</h3>
-                    <p>{burger.description}</p>
-                    <p className="price">${burger.price}</p>
-                  </div>
-                  <button className="btn" onClick={() => addToCart(burger)}>Add to Cart</button>
-                </div>
-              ))}
-            </div>
-        
+
         <div style={cardStyle}>
-          <h3>Spot #1 Status</h3>
+          <h3>Local Arduino Status</h3>
           {sensorData !== null ? (
             <>
               <p>temp data: {sensorData}</p>
               <p>Status: {sensorData < 30 ? 'Occupied' : 'Vacant'}</p>
+              <p>Jelyan's Arduino</p>
             </>
           ) : (
             <p>Waiting for data from Arduino...</p>
           )}
         </div>
+
+        {apiData.filter(item => item.id <= 1).map((apiData) => (
+          <div style={cardStyle}>
+          <h3>Live Server Spot Status</h3>
+          {apiData.status !== null ? (
+            <>
+              <p>temp data: {apiData.status}</p>
+              <p>Status: {apiData.status < 30 ? 'Occupied' : 'Vacant'}</p>
+              <p>Online, Updated every 2s</p>
+            </>
+          ) : (
+            <p>Waiting for data from Arduino...</p>
+          )}
+        </div>
+        ))}
+
+        <br />
+        <div className="features-grid">
+              {apiData.map((apiData) => (
+                <div key={apiData.id} className="feature-card">
+                  <div className='feature-card-content'>
+                    <img src={apiData.avatar} alt={apiData.name} />
+                    <h3>{apiData.name}</h3>
+                    <p>{apiData.spots.length} spots</p>
+                    <p>Parking Fee: <span className="price">₱{apiData.price}</span></p>
+                  </div>
+                  <button className="btn" onClick={() => addToCart(apiData)}>View Parking</button>
+                </div>
+              ))}
+            </div>
 
       </div>
       <StatusModal
