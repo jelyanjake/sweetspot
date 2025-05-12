@@ -63,15 +63,7 @@ function App() {
               </motion.div>
             } />
             <Route path="/admin" element={
-              <motion.div
-                initial="initial"
-                animate="in"
-                exit="out"
-                variants={pageVariants}
-                transition={pageTransition}
-              >
                 <AdminPage />
-              </motion.div>
             } />
           </Routes>
         </AnimatePresence>

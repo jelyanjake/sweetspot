@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
 import './admin.css';
+import { PasswordModal } from './PasswordModal';
+import EditModal from './EditModal';
+import AddModal from './AddModal';
 
 function AdminPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  
 
   useEffect(() => {
+    if (isAuthenticated) {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/users');
+        const response = await fetch('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers');
         const data = await response.json();
         setUsers(data);
         setLoading(false);
@@ -20,20 +28,20 @@ function AdminPage() {
     };
 
     fetchUsers();
-  }, []);
+  }
+  }, [isAuthenticated]);
 
   const filteredUsers = users.filter(user => 
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.idnum.includes(searchTerm)
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const activeUsers = users.filter(user => user.isActive).length;
   const inactiveUsers = users.length - activeUsers;
 
   const handleDelete = async (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
+    if (window.confirm('Are you sure you want to delete this establishment?')) {
       try {
-        await fetch(`https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/users/${userId}`, {
+        await fetch(`https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/${userId}`, {
           method: 'DELETE'
         });
         setUsers(users.filter(user => user.id !== userId));
@@ -43,16 +51,76 @@ function AdminPage() {
     }
   };
 
+  const handleSaveEdit = async (updatedData) => {
+    try {
+      const response = await fetch(
+        `https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/${editingUser.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...editingUser,
+            ...updatedData
+          })
+        }
+      );
+      
+      if (response.ok) {
+        setUsers(users.map(user => 
+          user.id === editingUser.id ? { ...user, ...updatedData } : user
+        ));
+        setEditingUser(null);
+      }
+    } catch (error) {
+      console.error('Error updating:', error);
+    }
+  };
+
+  const handleAddEstablishment = async (newData) => {
+    try {
+      const response = await fetch('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...newData,
+          parking: [], // Default empty parking array
+          status: 0, // Default status
+          isActive: false // Default active status
+        })
+      });
+      
+      if (response.ok) {
+        const createdUser = await response.json();
+        setUsers([...users, createdUser]);
+        setShowAddModal(false);
+      }
+    } catch (error) {
+      console.error('Error adding establishment:', error);
+    }
+  };
+
+  if (!isAuthenticated) {
+      return (
+        <PasswordModal 
+          onSuccess={() => setIsAuthenticated(true)}
+        />
+      );
+    }
+
   return (
     <section id="users">
       <div className="container">
         <div className="section-title">
           <div className="userlog">
-            <h2>User Statistics</h2>
+            <h2>System Statistics</h2>
             <div className="parent">
               <div className="div1">
                 <p>{users.length}</p>
-                <p>Number of Users</p>
+                <p>Number of Establishments</p>
               </div>
               <div className="div2">
                 <p>{activeUsers}</p>
@@ -63,6 +131,7 @@ function AdminPage() {
                 <p>Inactive</p>
               </div>
               <div className="div4">
+                <button className="add-btn" onClick={() => setShowAddModal(true)}>Add Establishment</button>
                 <input
                   type="text"
                   placeholder="Search by name or ID..."
@@ -80,34 +149,27 @@ function AdminPage() {
                 <table>
                   <thead>
                     <tr>
-                      <th>ID Number</th>
                       <th>Name</th>
-                      <th>Phone</th>
+                      <th>Location</th>
+                      <th>Spots</th>
                       <th>Status</th>
-                      <th>Last Action</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredUsers.map(user => (
                       <tr key={user.id}>
-                        <td>{user.idnum}</td>
                         <td>{user.name}</td>
-                        <td>{user.phone}</td>
+                        <td>{user.description}</td>
+                        <td>{user.spots}</td>
                         <td>
                           <span className={`status-badge ${user.isActive ? 'active' : 'inactive'}`}>
                             {user.isActive ? 'Active' : 'Inactive'}
                           </span>
                         </td>
-                        <td>{user.lastAction ? new Date(user.lastAction).toLocaleString() : 'Never'}</td>
                         <td>
-                          <button className="view-btn">View Logs</button>
-                          <button 
-                            className="delete-btn"
-                            onClick={() => handleDelete(user.id)}
-                          >
-                            Delete
-                          </button>
+                          <button className="view-btn" onClick={() => setEditingUser(user)}>Edit Place</button>
+                          <button className="delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
                         </td>
                       </tr>
                     ))}
@@ -117,6 +179,19 @@ function AdminPage() {
             )}
           </div>
         </div>
+        {editingUser && (
+          <EditModal
+            user={editingUser}
+            onSave={handleSaveEdit}
+            onCancel={() => setEditingUser(null)}
+          />
+        )}
+        {showAddModal && (
+    <AddModal
+      onSave={handleAddEstablishment}
+      onCancel={() => setShowAddModal(false)}
+    />
+  )}
       </div>
     </section>
   );

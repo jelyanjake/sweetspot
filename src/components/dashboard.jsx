@@ -74,7 +74,7 @@ function DashboardPage() {
     };
   }, []);
 
-  const cardStyle = {
+  /*const cardStyle = {
     backgroundColor: sensorData < 30 ? '#ff6b6b' : '#51cf66', // red : green
     color: 'white',
     padding: '20px',
@@ -83,7 +83,7 @@ function DashboardPage() {
     transition: 'background-color 0.3s ease',
     margin: '20px 0',
     maxWidth: '300px'
-  };
+  };*/
 
   return (
     <section id="features">
@@ -93,6 +93,7 @@ function DashboardPage() {
         </div>
         <br />
 
+        {/*}
         <div style={cardStyle}>
           <h3>Local Arduino Status</h3>
           {sensorData !== null ? (
@@ -121,6 +122,8 @@ function DashboardPage() {
         </div>
         ))}
 
+        */}
+
         <br />
         <div className="features-grid">
               {apiData.map((apiData) => (
@@ -129,7 +132,7 @@ function DashboardPage() {
                     <img src={apiData.avatar} alt={apiData.name} />
                     <h3>{apiData.name}</h3>
                     <p>{apiData.description}</p>
-                    <p>{apiData.spots.length} spots</p>
+                    <p>{apiData.spots} Parking Spots</p>
                     <p>Parking Fee: <span className="price">₱{apiData.price}</span></p>
                   </div>
                   <button className="btn" onClick={() => addToCart(apiData)}>View Parking</button>
