@@ -3,6 +3,7 @@ import StatusModal from './StatusModal';
 import io from 'socket.io-client';
 //import { fetchBurgers } from '../api/api';
 import axios from 'axios';
+import ParkingModal from './ParkingModal';
 
 function DashboardPage() {
   const [status, setStatus] = useState(null);
@@ -11,6 +12,7 @@ function DashboardPage() {
   const [data, setData] = useState([]);
   const sensorRef = useRef(sensorData);
   const [apiData, setApiData] = useState([]);
+  const [selectedEstablishment, setSelectedEstablishment] = useState(null);
 
   /*useEffect(() => {
     const loadData = async () => {
@@ -32,7 +34,6 @@ function DashboardPage() {
       try {
         const burgers = await axios.get('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers');
         setApiData(burgers.data);
-        //console.log('GET: Fetched data:', burgers.data);
       } catch (err) {
         console.error('GET error:', err);
       }
@@ -48,7 +49,6 @@ function DashboardPage() {
         await axios.put('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/1', {
           status: Number(sensorRef.current),
         });
-        //console.log(`Updated status to ${sensorRef.current}`);
       } catch (error) {
         console.error('Failed to update status:', error);
       }
@@ -74,17 +74,6 @@ function DashboardPage() {
     };
   }, []);
 
-  /*const cardStyle = {
-    backgroundColor: sensorData < 30 ? '#ff6b6b' : '#51cf66', // red : green
-    color: 'white',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    transition: 'background-color 0.3s ease',
-    margin: '20px 0',
-    maxWidth: '300px'
-  };*/
-
   return (
     <section id="features">
       <div className="container">
@@ -107,21 +96,6 @@ function DashboardPage() {
           )}
         </div>
 
-        {apiData.filter(item => item.id <= 1).map((apiData) => (
-          <div key={apiData.id} style={cardStyle}>
-          <h3>Live Server Spot Status</h3>
-          {apiData.status !== null ? (
-            <>
-              <p>Data: {apiData.status}cm</p>
-              <p>Status: {apiData.status < 30 ? 'Occupied' : 'Vacant'}</p>
-              <p>Updated every 2s</p>
-            </>
-          ) : (
-            <p>Waiting for data from Arduino...</p>
-          )}
-        </div>
-        ))}
-
         */}
 
         <br />
@@ -135,7 +109,7 @@ function DashboardPage() {
                     <p>{apiData.spots} Parking Spots</p>
                     <p>Parking Fee: <span className="price">₱{apiData.price}</span></p>
                   </div>
-                  <button className="btn" onClick={() => addToCart(apiData)}>View Parking</button>
+                  <button className="btn" onClick={() => setSelectedEstablishment(apiData)}>View Parking</button>
                 </div>
               ))}
             </div>
@@ -146,6 +120,12 @@ function DashboardPage() {
         message={statusMessage}
         onClose={() => setStatus(null)}
       />
+      {selectedEstablishment && (
+    <ParkingModal
+      establishment={selectedEstablishment}
+      onClose={() => setSelectedEstablishment(null)}
+    />
+  )}
     </section>
   );
 }

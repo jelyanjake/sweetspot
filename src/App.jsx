@@ -6,6 +6,7 @@ import MenuPopup from './components/menupopup';
 import HomePage from './components/home';
 import DashboardPage from './components/dashboard';
 import AdminPage from './components/admin';
+import TestPage from './components/test';
 
 function App() {
   
@@ -60,6 +61,17 @@ function App() {
                 transition={pageTransition}
               >
                 <DashboardPage />
+              </motion.div>
+            } />
+            <Route path="/test" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <TestPage />
               </motion.div>
             } />
             <Route path="/admin" element={
