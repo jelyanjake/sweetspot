@@ -39,7 +39,7 @@ const ParkingModal = ({ establishment, onClose }) => {
     <div className="modal-overlay">
       <div className="parking-modal">
         <h3>{establishment.name} Parking Spots</h3>
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="close-btn" onClick={onClose}>x</button>
         
         <div className={`spots-grid ${isTestEstablishment ? 'grid-view' : ''}`}>
           {parkingSpots.length > 0 ? (
