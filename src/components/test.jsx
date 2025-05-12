@@ -2,16 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import StatusModal from './StatusModal';
 import io from 'socket.io-client';
 import axios from 'axios';
-import ParkingModal from './ParkingModal';
 
 function TestPage() {
   const [status, setStatus] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [sensorData, setSensorData] = useState(null);
-  const [data, setData] = useState([]);
   const sensorRef = useRef(sensorData);
   const [apiData, setApiData] = useState([]);
-  const [selectedEstablishment, setSelectedEstablishment] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +91,7 @@ function TestPage() {
   return (
     <section id="features">
       <div className="container">
-
+        <p>hardwares</p>
         <div style={cardStyle}>
           <h3>Local Arduino Status</h3>
           {sensorData !== null ? (
@@ -116,12 +113,6 @@ function TestPage() {
         message={statusMessage}
         onClose={() => setStatus(null)}
       />
-      {selectedEstablishment && (
-    <ParkingModal
-      establishment={selectedEstablishment}
-      onClose={() => setSelectedEstablishment(null)}
-    />
-  )}
     </section>
   );
 }
