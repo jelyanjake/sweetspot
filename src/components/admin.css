@@ -195,6 +195,7 @@
 
 .modal-buttons button:first-child {
   background-color: #f1f1f1;
+  color: #333;
 }
 
 .modal-buttons button:last-child {

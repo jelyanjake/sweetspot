@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import StatusModal from './StatusModal';
 import io from 'socket.io-client';
 import axios from 'axios';
+import './test.css';
 
 function TestPage() {
   const [status, setStatus] = useState(null);
@@ -9,6 +10,48 @@ function TestPage() {
   const [sensorData, setSensorData] = useState(null);
   const sensorRef = useRef(sensorData);
   const [apiData, setApiData] = useState([]);
+
+  const handleReserve = async () => {
+    try {
+      // Find the test establishment (id:4)
+      const testEstablishment = apiData.find(item => item.id === "4") || {
+        id: "4",
+        name: "Test Establishment",
+        avatar: "https://www.wpkube.com/wp-content/uploads/2021/06/debug-mode-wp-1280x720.png",
+        description: "For Testing and Debugging",
+        price: "0",
+        spots: "3",
+        parking: [
+          { id: "1", spotstatus: "reserved" }, // Set to reserve
+          { id: "2", spotstatus: "disabled" },
+          { id: "3", spotstatus: "disabled" }
+        ],
+        status: 0, // You can set this to whatever makes sense for reserved status
+        isActive: true
+      };
+
+      // Update the first parking spot's status to "reserve"
+      const updatedParking = testEstablishment.parking.map((spot, index) => 
+        index === 0 ? { ...spot, spotstatus: "reserved" } : spot
+      );
+
+      await axios.put(
+        `https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/4`,
+        {
+          ...testEstablishment,
+          parking: updatedParking,
+          status: 0 // Optional: set a special status code for reserved spots
+        }
+      );
+
+      console.log('Spot reserved successfully');
+      // Refresh the data to see the changes
+      const response = await axios.get('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers');
+      setApiData(response.data);
+    } catch (error) {
+      console.error('Error reserving spot:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,8 +147,11 @@ function TestPage() {
             <p>Waiting for data from Arduino...</p>
           )}
         </div>
-
         <br />
+
+        <button className="resbtn" onClick={handleReserve}>Reserve</button>
+
+
 
       </div>
       <StatusModal

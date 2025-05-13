@@ -3,8 +3,11 @@ import './admin.css';
 import { PasswordModal } from './PasswordModal';
 import EditModal from './EditModal';
 import AddModal from './AddModal';
+import StatusModal from './StatusModal';
 
 function AdminPage() {
+  const [status, setStatus] = useState(null);
+  const [statusMessage, setStatusMessage] = useState('');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,19 +43,28 @@ function AdminPage() {
 
   const handleDelete = async (userId) => {
     if (window.confirm('Are you sure you want to delete this establishment?')) {
+      setStatus('loading');
+      setStatusMessage('Deleting establishment...');
       try {
         await fetch(`https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/${userId}`, {
           method: 'DELETE'
         });
         setUsers(users.filter(user => user.id !== userId));
+        setStatus('success');
+        setStatusMessage('Establishment deleted successfully!');
       } catch (error) {
         console.error('Error deleting user:', error);
+        setStatus('error');
+        setStatusMessage('Failed to delete establishment.');
       }
     }
   };
 
   const handleSaveEdit = async (updatedData) => {
     try {
+      setEditingUser(null);
+      setStatus('loading');
+      setStatusMessage('Updating establishment...');
       const response = await fetch(
         `https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers/${editingUser.id}`,
         {
@@ -71,15 +83,21 @@ function AdminPage() {
         setUsers(users.map(user => 
           user.id === editingUser.id ? { ...user, ...updatedData } : user
         ));
-        setEditingUser(null);
+        setStatus('success');
+        setStatusMessage('Establishment updated successfully!');
       }
     } catch (error) {
       console.error('Error updating:', error);
+      setStatus('error');
+      setStatusMessage('Failed to update establishment.');
     }
   };
 
   const handleAddEstablishment = async (newData) => {
     try {
+      setShowAddModal(false);
+      setStatus('loading');
+      setStatusMessage('Adding establishment...');
       const response = await fetch('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/burgers', {
         method: 'POST',
         headers: {
@@ -96,10 +114,13 @@ function AdminPage() {
       if (response.ok) {
         const createdUser = await response.json();
         setUsers([...users, createdUser]);
-        setShowAddModal(false);
+        setStatus('success');
+        setStatusMessage('Establishment added successfully!');
       }
     } catch (error) {
       console.error('Error adding establishment:', error);
+      setStatus('error');
+      setStatusMessage('Failed to add establishment.');
     }
   };
 
@@ -192,6 +213,11 @@ function AdminPage() {
       onCancel={() => setShowAddModal(false)}
     />
   )}
+  <StatusModal
+        status={status}
+        message={statusMessage}
+        onClose={() => setStatus(null)}
+      />
       </div>
     </section>
   );
