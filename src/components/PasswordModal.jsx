@@ -8,8 +8,18 @@ export const PasswordModal = ({ onSuccess }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const user1 = 'katarinabluu';
-  const pass1 = 'imwinter';
+  const fetchData = async () => {
+      try {
+        const response = await axios.get('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/users/7');
+        users = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+
+  const user1 = users.name;
+  const pass1 = users.password;
 
   const onClose = () => {
     navigate('/');
