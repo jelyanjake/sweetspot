@@ -1,4 +1,39 @@
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.resbtn, .avbtn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .resbtn {
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #f7c353;
+  color: #333;
+}
+
+.avbtn {
+  background-color: #51cf66;
+  color: white;
+}
+
+.resbtn:disabled, .avbtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.resbtn:not(:disabled):hover {
+  background-color: #e6b142;
+  transform: translateY(-2px);
+}
+
+.avbtn:not(:disabled):hover {
+  background-color: #40b955;
+  transform: translateY(-2px);
 }
