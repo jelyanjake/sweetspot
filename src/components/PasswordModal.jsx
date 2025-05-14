@@ -8,13 +8,16 @@ export const PasswordModal = ({ onSuccess }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const user1 = 'katarinabluu';
+  const pass1 = 'imwinter';
+
   const onClose = () => {
     navigate('/');
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === 'qweqwe123123' && user === 'potatozuu') {
+    if (password === pass1 && user === user1) {
       onSuccess();
     } else {
       setError('Incorrect user or password');
