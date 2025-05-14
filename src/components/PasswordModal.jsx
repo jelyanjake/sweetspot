@@ -2,26 +2,27 @@ import { useState } from 'react';
 import './PasswordModal.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API } from './h';
+import API from './h';
 
 export const PasswordModal = ({ onSuccess }) => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [user1, setUser1] = useState('');
+  const [pass1, setPass1] = useState('');
 
   const fetchData = async () => {
       try {
         const response = await axios.get(API);
-        users = response.data;
+        const users = response.data;
+        setUser1(users.user);
+        setPass1(users.password);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
-
-  const user1 = users.name;
-  const pass1 = users.password;
 
   const onClose = () => {
     navigate('/');
