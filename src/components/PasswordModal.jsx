@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './PasswordModal.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API } from '../h';
 
 export const PasswordModal = ({ onSuccess }) => {
   const [password, setPassword] = useState('');
@@ -10,7 +12,7 @@ export const PasswordModal = ({ onSuccess }) => {
 
   const fetchData = async () => {
       try {
-        const response = await axios.get('https://67f50ba7913986b16fa2f9ff.mockapi.io/api/v1/users/7');
+        const response = await axios.get(API);
         users = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
