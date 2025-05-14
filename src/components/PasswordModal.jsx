@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './PasswordModal.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API } from '../h';
+import { API } from './h';
 
 export const PasswordModal = ({ onSuccess }) => {
   const [password, setPassword] = useState('');
