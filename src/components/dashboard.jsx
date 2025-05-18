@@ -41,7 +41,7 @@ function DashboardPage() {
                     <img src={apiData.avatar} alt={apiData.name} />
                     <h3>{apiData.name}</h3>
                     <p>{apiData.description}</p>
-                    <p>{apiData.spots} Parking Spots</p>
+                    <p>{apiData.parking.filter(spot => spot.spotstatus !== 'reserved' && spot.spotstatus !== 'disabled' && spot.t !== 'occupied').length} Available Spots</p>
                     <p>Parking Fee: <span className="price">₱{apiData.price}</span></p>
                   </div>
                   <button className="btn" onClick={() => setSelectedEstablishment(apiData)}>View Parking</button>
