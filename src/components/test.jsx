@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import './test.css';
+import { sendSMS } from './sms';
 
 function TestPage() {
   // State management
@@ -10,6 +11,11 @@ function TestPage() {
   const [socket, setSocket] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const sensorRef = useRef(null);
+  const [formData, setFormData] = useState('');
+
+  const handleChange = (event) => {
+    setFormData(event.target.value);
+  };
 
   // Centralized status updater
   const updateSystemStatus = async (newStatus, source = 'local') => {
@@ -99,7 +105,17 @@ function TestPage() {
   }, [currentStatus]);
 
   // Button handlers
-  const handleReserve = () => updateSystemStatus('reserved');
+  const handleReserve = () => {
+    if (!formData) {
+      alert('Please enter your phone number to reserve a spot.');
+      return;
+    }
+    else {
+      updateSystemStatus('reserved');
+      sendSMS(formData, 'You have successfully reserved [Basement Area | Spot #1]. Please proceed to TEST ESTABLISHMENT.');
+      console.log('SMS sent');
+    }
+  };
   const handleAvailable = () => updateSystemStatus('available');
 
   // UI styling
@@ -148,6 +164,15 @@ function TestPage() {
             {isUpdating ? 'Processing...' : 'MAKE AVAILABLE'}
           </button>
         </div>
+          <br />
+        <input 
+          type="text" 
+          name="phone" 
+          value={formData.phone} 
+          onChange={handleChange}
+          autoComplete='off' 
+        />
+      <button type="submit">Submit</button>
       </div>
     </section>
   );

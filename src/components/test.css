@@ -37,3 +37,15 @@
   background-color: #40b955;
   transform: translateY(-2px);
 }
+
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
